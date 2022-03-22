@@ -24,7 +24,7 @@ export default new EntitySchema({
       target: 'Album',
       type: 'one-to-many',
       joinColumn: true,
-      inverseSide: 'artist'
-    }
-  }
-})
+      inverseSide: 'artist',
+    },
+  },
+});

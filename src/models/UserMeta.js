@@ -25,13 +25,7 @@ export default new EntitySchema({
       type: 'varchar',
     },
     avatar: {
-      type: 'varchar'
-    }
-  },
-  relations: {
-    user: {
-      target: 'User',
-      type: 'one-to-one',
+      type: 'varchar',
     },
   },
-})
+});

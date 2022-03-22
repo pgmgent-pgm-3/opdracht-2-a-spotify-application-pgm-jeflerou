@@ -16,16 +16,18 @@ export default new EntitySchema({
       generated: true,
     },
     email: {
-      type: 'varchar'
+      type: 'varchar',
     },
     password: {
-      type: 'varchar'
-    }
+      type: 'varchar',
+    },
   },
   relations: {
     user_meta: {
       target: 'UserMeta',
       type: 'one-to-one',
+      cascade: true,
+      joinColumn: true,
     },
     role: {
       target: 'Role',
@@ -39,5 +41,5 @@ export default new EntitySchema({
       type: 'many-to-many',
       joinTable: true,
     },
-  }
-})
+  },
+});

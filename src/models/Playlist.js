@@ -30,5 +30,5 @@ export default new EntitySchema({
       type: 'many-to-many',
       joinTable: true,
     },
-  }
-})
+  },
+});

@@ -25,12 +25,12 @@ export default new EntitySchema({
       type: 'many-to-one',
       joinTable: true,
       cascade: true,
-      inverseSide: 'songs'
+      inverseSide: 'songs',
     },
     playlists: {
       target: 'Playlist',
       type: 'many-to-many',
       joinTable: true,
-    }
-  }
-})
+    },
+  },
+});

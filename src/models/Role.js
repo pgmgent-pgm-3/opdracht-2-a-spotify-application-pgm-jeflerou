@@ -24,7 +24,7 @@ export default new EntitySchema({
       target: 'User',
       type: 'one-to-many',
       joinColumn: true,
-      inverseSide: 'role'
-    }
-  }
-})
+      inverseSide: 'role',
+    },
+  },
+});
