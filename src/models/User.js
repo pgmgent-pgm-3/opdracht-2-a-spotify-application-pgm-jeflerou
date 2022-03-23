@@ -40,6 +40,7 @@ export default new EntitySchema({
       target: 'Playlist',
       type: 'many-to-many',
       joinTable: true,
+      cascade: true,
     },
   },
 });

@@ -3,10 +3,22 @@ import 'dotenv/config';
 import { createConnection } from 'typeorm';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import swaggerUiExpress from 'swagger-ui-express';
 import entities from './models/index.js';
+import swaggerDefinition from './docs/swagger.js';
 
 const app = express();
 app.use(express.static('public'));
+
+/**
+ * Import swagger documentation
+ */
+
+app.use(
+  '/api-docs',
+  swaggerUiExpress.serve,
+  swaggerUiExpress.setup(swaggerDefinition)
+);
 
 /**
  * Import the body parser

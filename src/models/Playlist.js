@@ -8,7 +8,7 @@ const { EntitySchema } = typeorm;
 
 export default new EntitySchema({
   name: 'Playlist',
-  tableName: 'play_lists',
+  tableName: 'playlists',
   columns: {
     id: {
       primary: true,
