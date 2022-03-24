@@ -27,6 +27,30 @@ export const register = async (req, res) => {
       value: req.body?.password ? req.body.password : '',
       error: req.formErrorFields?.password ? req.formErrorFields.password : '',
     },
+    {
+      name: 'firstName',
+      label: 'firstName',
+      type: 'text',
+      value: req.body?.firstName ? req.body.firstName : '',
+    },
+    {
+      name: 'lastName',
+      label: 'lastName',
+      type: 'text',
+      value: req.body?.lastName ? req.body.lastName : '',
+    },
+    {
+      name: 'userName',
+      label: 'userName',
+      type: 'text',
+      value: req.body?.userName ? req.body.userName : '',
+    },
+    {
+      name: 'role',
+      label: 'role',
+      type: 'text',
+      value: req.body?.role ? req.body.role : '',
+    },
   ];
 
   // render the register page
@@ -49,11 +73,10 @@ export const login = async (req, res) => {
   // input fields
   const inputs = [
     {
-      name: 'email',
-      label: 'E-mail',
+      name: 'userName',
+      label: 'userName',
       type: 'text',
-      value: req.body?.email ? req.body.email : '',
-      error: req.formErrorFields?.email ? req.formErrorFields.email : '',
+      value: req.body?.userName ? req.body.userName : '',
     },
     {
       name: 'password',
@@ -111,6 +134,15 @@ export const postRegister = async (req, res, next) => {
     await userRepository.save({
       email: req.body.email,
       password: hashedPassword,
+      user_meta: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userName: req.body.userName,
+        avatar: '',
+      },
+      role: {
+        label: req.body.role,
+      },
     });
 
     // go to login page
@@ -138,7 +170,7 @@ export const postLogin = async (req, res, next) => {
     // validate if the user exists
     const user = await userRepository.findOne({
       where: {
-        email: req.body.email,
+        userName: req.body.userName,
       },
     });
 
@@ -169,7 +201,7 @@ export const postLogin = async (req, res, next) => {
     const token = jwt.sign(
       {
         userId: user.id,
-        email: user.email,
+        userName: user.userName,
       },
       process.env.TOKEN_SALT,
       {
