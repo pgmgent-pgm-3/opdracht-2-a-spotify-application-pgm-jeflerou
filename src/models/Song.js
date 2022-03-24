@@ -32,5 +32,12 @@ export default new EntitySchema({
       type: 'many-to-many',
       joinTable: true,
     },
+    album: {
+      target: 'Album',
+      type: 'many-to-one',
+      joinTable: true,
+      cascade: true,
+      inverseSide: 'songs',
+    },
   },
 });

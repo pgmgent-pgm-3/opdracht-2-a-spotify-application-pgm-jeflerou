@@ -27,5 +27,11 @@ export default new EntitySchema({
       cascade: true,
       inverseSide: 'artists',
     },
+    songs: {
+      target: 'Song',
+      type: 'one-to-many',
+      joinColumn: true,
+      inverseSide: 'album',
+    },
   },
 });

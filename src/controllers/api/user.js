@@ -17,7 +17,7 @@ export const getUsers = async (req, res, next) => {
     // get the users and return them with status code 200
     res.status(200).json(
       await userRepository.find({
-        relations: ['user_meta', 'roles', 'playlists'],
+        relations: ['user_meta', 'roles'],
       })
     );
   } catch (e) {
@@ -46,7 +46,11 @@ export const getUser = async (req, res, next) => {
     if (!user)
       throw new Error(`The user with id: ${req.body.id} does not exist.`);
 
-    res.status(200).json(user);
+    res.status(200).json(
+      await userRepository.find({
+        relations: ['user_meta', 'roles'],
+      })
+    );
   } catch (e) {
     next(e.message);
   }
