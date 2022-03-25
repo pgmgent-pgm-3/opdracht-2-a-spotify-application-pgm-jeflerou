@@ -140,8 +140,9 @@ export const postRegister = async (req, res, next) => {
         userName: req.body.userName,
         avatar: '',
       },
+      // TODO need to add middleware to make sure role is one of the three predefined roles
       role: {
-        label: req.body.role,
+        name: req.body.role,
       },
     });
 
@@ -201,7 +202,7 @@ export const postLogin = async (req, res, next) => {
     const token = jwt.sign(
       {
         userId: user.id,
-        userName: user.userName,
+        userName: user.user_meta.userName,
       },
       process.env.TOKEN_SALT,
       {

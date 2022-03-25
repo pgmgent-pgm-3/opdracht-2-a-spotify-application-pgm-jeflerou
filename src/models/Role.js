@@ -15,7 +15,7 @@ export default new EntitySchema({
       type: 'int',
       generated: true,
     },
-    label: {
+    name: {
       type: 'varchar',
     },
   },
