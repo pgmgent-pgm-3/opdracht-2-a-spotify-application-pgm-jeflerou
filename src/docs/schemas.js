@@ -7,7 +7,7 @@ export default {
   'User': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       email: {
         type: 'string',
@@ -55,7 +55,7 @@ export default {
   'UserMeta': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       firstName: {
         type: 'string',
@@ -74,7 +74,7 @@ export default {
   'Role': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       label: {
         type: 'string',
@@ -84,7 +84,7 @@ export default {
   'Artist': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       name: {
         type: 'string',
@@ -97,7 +97,7 @@ export default {
   'Album': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       name: {
         type: 'string',
@@ -110,7 +110,7 @@ export default {
   'Song': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       name: {
         type: 'string',
@@ -123,7 +123,7 @@ export default {
   'Playlist': {
     properties: {
       id: {
-        type: 'int',
+        type: 'integer',
       },
       name: {
         type: 'string',

@@ -31,9 +31,6 @@ export const getUser = async (req, res, next) => {
     if (!req.body.id)
       throw new Error('Please provide an id for the user you want to fetch');
 
-    // make sure your user provides his id
-    if (!req.body.userId) throw new Error('Please provide your userId');
-
     // get the user repository
     const userRepository = getConnection().getRepository('User');
 

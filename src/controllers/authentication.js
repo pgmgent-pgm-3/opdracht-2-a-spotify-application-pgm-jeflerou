@@ -203,6 +203,7 @@ export const postLogin = async (req, res, next) => {
       {
         userId: user.id,
         userName: user.user_meta.userName,
+        role: user.role.name,
       },
       process.env.TOKEN_SALT,
       {

@@ -39,3 +39,37 @@ export const deleteObject = async (entityName, req, res, next) => {
     next(e.message);
   }
 };
+
+export const getObject = async (entityName, req, res, next) => {
+  try {
+    // get the id from the request variables
+    const { id } = req.params;
+
+    // get the repository
+    const repository = getConnection().getRepository(entityName);
+
+    // get the relations from the repository
+    const { relations } = repository.metadata;
+    const relationsArray = relations.map((relation) => relation.propertyName);
+
+    // check if there is an id present if not return the whole list
+    if (!id) {
+      res.status(200).json(
+        await repository.find({
+          relations: [...relationsArray],
+        })
+      );
+    }
+    // return the user based on id
+    res.status(200).json(
+      await repository.findOne({
+        relations: [...relationsArray],
+        where: {
+          id: req.body.id,
+        },
+      })
+    );
+  } catch (e) {
+    next(e.message);
+  }
+};
