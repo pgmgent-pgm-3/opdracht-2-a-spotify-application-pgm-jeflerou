@@ -20,6 +20,7 @@ import {
   logout,
 } from './controllers/authentication.js';
 import validationAuthentication from './middleware/validation/authentication.js';
+import roleValidation from './middleware/validation/checkRoles.js';
 import validateAdmin from './middleware/validation/adminAuthorization.js';
 import { jwtAuth } from './middleware/jwtAuth.js';
 
@@ -69,7 +70,13 @@ app.get('/', jwtAuth, home);
 
 app.get('/register', register);
 app.get('/login', login);
-app.post('/register', ...validationAuthentication, postRegister, register);
+app.post(
+  '/register',
+  ...validationAuthentication,
+  roleValidation,
+  postRegister,
+  register
+);
 app.post('/login', postLogin);
 app.post('/logout', logout);
 
