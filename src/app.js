@@ -7,12 +7,21 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import swaggerUiExpress from 'swagger-ui-express';
 import { SOURCE_PATH } from './const.js';
+import { home } from './controllers/home.js';
 import HandlebarsHelpers from './lib/HandlebarsHelpers.js';
 import entities from './models/index.js';
 import swaggerDefinition from './docs/swagger.js';
 import { getObject } from './controllers/api/object.js';
-import { register, postRegister } from './controllers/authentication.js';
+import {
+  register,
+  postRegister,
+  login,
+  postLogin,
+  logout,
+} from './controllers/authentication.js';
 import validationAuthentication from './middleware/validation/authentication.js';
+import validateAdmin from './middleware/validation/adminAuthorization.js';
+import { jwtAuth } from './middleware/jwtAuth.js';
 
 const app = express();
 app.use(express.static('public'));
@@ -56,14 +65,21 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  * App routing
  */
 
+app.get('/', jwtAuth, home);
+
 app.get('/register', register);
+app.get('/login', login);
 app.post('/register', ...validationAuthentication, postRegister, register);
+app.post('/login', postLogin);
+app.post('/logout', logout);
 
 /**
  * API routing
  */
 
-app.use('/api/users', (req, res, next) => getObject('User', req, res, next));
+app.use('/api/users', validateAdmin, (req, res, next) =>
+  getObject('User', req, res, next)
+);
 
 /**
  * Creates a connection to our database en starts listening

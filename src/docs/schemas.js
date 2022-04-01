@@ -76,7 +76,7 @@ export default {
       id: {
         type: 'integer',
       },
-      label: {
+      name: {
         type: 'string',
       },
     }

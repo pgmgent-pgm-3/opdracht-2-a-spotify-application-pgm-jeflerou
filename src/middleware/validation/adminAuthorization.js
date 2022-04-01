@@ -1,17 +1,24 @@
 /**
  * authorization of admin user
  */
+import jwt from 'jsonwebtoken';
 
-export const validateAdmin = (req, res, next) => {
+export default (req, res, next) => {
   try {
     const { token } = req.cookies;
+    if (!token) {
+      return res.redirect('/login');
+    }
+    const user = jwt.verify(token, process.env.TOKEN_SALT);
 
-    if (token.role.name !== 'admin') {
+    console.log(user);
+
+    if (user.role.name !== 'admin') {
       res
         .status(500)
         .json({ status: `only an admin can preform this action.` });
     }
-    res.next();
+    next();
   } catch (e) {
     next(e.message);
   }

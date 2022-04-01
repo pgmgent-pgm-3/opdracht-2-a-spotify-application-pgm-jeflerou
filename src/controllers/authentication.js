@@ -3,7 +3,7 @@
  */
 
 import { validationResult } from 'express-validator';
-import { getConnection } from 'typeorm';
+import { getConnection, getManager } from 'typeorm';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -140,7 +140,6 @@ export const postRegister = async (req, res, next) => {
         userName: req.body.userName,
         avatar: '',
       },
-      // TODO need to add middleware to make sure role is one of the three predefined roles
       role: {
         name: req.body.role,
       },
@@ -165,14 +164,16 @@ export const postLogin = async (req, res, next) => {
       });
       return next();
     }
-    // get the user repository
-    const userRepository = getConnection().getRepository('User');
 
-    // validate if the user exists
-    const user = await userRepository.findOne({
-      where: {
-        userName: req.body.userName,
-      },
+    // the username is in the userMeta table (specified in task) so to select user based on this I wrote a custom query because typeorm does not support this.
+    const users = await getManager().query(
+      `SELECT * FROM users INNER JOIN user_meta ON users.userMetaId = user_meta.id WHERE user_meta.userName ='${req.body.userName}'`
+    );
+    const user = users[0];
+
+    const roles = getConnection().getRepository('Role');
+    const role = await roles.findOne({
+      where: { id: user.roleId },
     });
 
     // check if we found a user
@@ -202,8 +203,8 @@ export const postLogin = async (req, res, next) => {
     const token = jwt.sign(
       {
         userId: user.id,
-        userName: user.user_meta.userName,
-        role: user.role.name,
+        userName: user.userName,
+        role: role.name,
       },
       process.env.TOKEN_SALT,
       {
