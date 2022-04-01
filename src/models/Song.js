@@ -38,6 +38,7 @@ export default new EntitySchema({
       joinTable: true,
       cascade: true,
       inverseSide: 'songs',
+      onDelete: 'CASCADE',
     },
   },
 });

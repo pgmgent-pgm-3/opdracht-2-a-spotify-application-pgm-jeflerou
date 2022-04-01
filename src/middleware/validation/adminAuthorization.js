@@ -11,8 +11,6 @@ export default (req, res, next) => {
     }
     const user = jwt.verify(token, process.env.TOKEN_SALT);
 
-    console.log(user);
-
     if (user.role.name !== 'admin') {
       res
         .status(500)

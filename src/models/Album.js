@@ -26,6 +26,7 @@ export default new EntitySchema({
       joinTable: true,
       cascade: true,
       inverseSide: 'artists',
+      onDelete: 'CASCADE',
     },
     songs: {
       target: 'Song',

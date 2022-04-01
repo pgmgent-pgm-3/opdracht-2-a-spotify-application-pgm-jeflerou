@@ -35,6 +35,7 @@ export default new EntitySchema({
       joinTable: true,
       cascade: true,
       inverseSide: 'users',
+      onDelete: 'CASCADE',
     },
     playlists: {
       target: 'Playlist',
