@@ -107,6 +107,7 @@ export const postRegister = async (req, res, next) => {
       });
       return next();
     }
+
     // get the user repository
     const userRepository = getConnection().getRepository('User');
 
