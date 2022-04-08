@@ -33,3 +33,34 @@ export const addSong = async (req, res, next) => {
     next(e.message);
   }
 };
+
+export const updateSong = async (req, res, next) => {
+  try {
+    // validate incoming body
+    if (!req.body.id)
+      throw new Error('Please provide an id for the song you want to update');
+
+    // get the song repository
+    const songRepository = getConnection().getRepository('Song');
+
+    const song = await songRepository.findOne({
+      where: {
+        id: req.body.id,
+      },
+    });
+
+    // check if the song exists
+    if (!song) {
+      req.status(400).json({
+        status: `there is no song with the id: ${req.body.id}.`,
+      });
+    }
+
+    songRepository.save({
+      ...song,
+      ...req.body,
+    });
+  } catch (e) {
+    next(e.message);
+  }
+};
