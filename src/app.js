@@ -11,7 +11,12 @@ import { home } from './controllers/home.js';
 import HandlebarsHelpers from './lib/HandlebarsHelpers.js';
 import entities from './models/index.js';
 import swaggerDefinition from './docs/swagger.js';
-import { getObject } from './controllers/api/object.js';
+import {
+  getObject,
+  deleteObject,
+  updateObject,
+  addObject,
+} from './controllers/api/object.js';
 import {
   register,
   postRegister,
@@ -22,6 +27,7 @@ import {
 import validationAuthentication from './middleware/validation/authentication.js';
 import roleValidation from './middleware/validation/checkRoles.js';
 import validateAdmin from './middleware/validation/adminAuthorization.js';
+import validateEditor from './middleware/validation/editorAuthorization';
 import { jwtAuth } from './middleware/jwtAuth.js';
 
 const app = express();
@@ -84,8 +90,68 @@ app.post('/logout', logout);
  * API routing
  */
 
-app.use('/api/users', validateAdmin, (req, res, next) =>
+app.get('/api/users', validateAdmin, (req, res, next) =>
   getObject('User', req, res, next)
+);
+app.get('/api/user/:id', validateAdmin, (req, res, next) =>
+  getObject('User', req, res, next)
+);
+app.delete('/api/user/:id', validateAdmin, (req, res, next) =>
+  deleteObject('User', req, res, next)
+);
+app.post('/api/artist', validateAdmin, (req, res, next) =>
+  addObject('Artist', req, res, next)
+);
+app.put('/api/artist', validateAdmin, validateEditor, (req, res, next) =>
+  updateObject('Artist', req, res, next)
+);
+app.delete('/api/artist/:id', validateAdmin, (req, res, next) =>
+  deleteObject('Artist', req, res, next)
+);
+app.post('/api/song', validateAdmin, (req, res, next) =>
+  addObject('Song', req, res, next)
+);
+app.put('/api/song', validateAdmin, validateEditor, (req, res, next) =>
+  updateObject('Song', req, res, next)
+);
+app.delete('/api/song/:id', validateAdmin, (req, res, next) =>
+  deleteObject('Song', req, res, next)
+);
+app.get('/api/songs', (req, res, next) => getObject('Song', req, res, next));
+app.get('/api/song/:id', (req, res, next) => getObject('Song', req, res, next));
+app.post('/api/album', validateAdmin, (req, res, next) =>
+  addObject('Album', req, res, next)
+);
+app.put('/api/album', validateAdmin, validateEditor, (req, res, next) =>
+  updateObject('Album', req, res, next)
+);
+app.delete('/api/album/:id', validateAdmin, (req, res, next) =>
+  deleteObject('Album', req, res, next)
+);
+app.get('/api/albums', (req, res, next) => getObject('Album', req, res, next));
+app.get('/api/album/:id', (req, res, next) =>
+  getObject('Album', req, res, next)
+);
+app.post('/api/playlist', validateAdmin, (req, res, next) =>
+  addObject('Playlist', req, res, next)
+);
+app.put('/api/playlist', validateAdmin, validateEditor, (req, res, next) =>
+  updateObject('Playlist', req, res, next)
+);
+app.delete('/api/playlist/:id', validateAdmin, (req, res, next) =>
+  deleteObject('Playlist', req, res, next)
+);
+app.get('/api/playlists', (req, res, next) =>
+  getObject('Playlist', req, res, next)
+);
+app.get('/api/playlist/:id', (req, res, next) =>
+  getObject('Playlist', req, res, next)
+);
+app.get('/api/playlist/:userId', (req, res, next) =>
+  getObject('Playlist', req, res, next)
+);
+app.post('/api/playlist/addSong', validateAdmin, (req, res, next) =>
+  addObject('Song', req, res, next)
 );
 
 /**
