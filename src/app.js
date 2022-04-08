@@ -27,7 +27,7 @@ import {
 import validationAuthentication from './middleware/validation/authentication.js';
 import roleValidation from './middleware/validation/checkRoles.js';
 import validateAdmin from './middleware/validation/adminAuthorization.js';
-import validateEditor from './middleware/validation/editorAuthorization';
+import validateEditor from './middleware/validation/editorAuthorization.js';
 import { jwtAuth } from './middleware/jwtAuth.js';
 
 const app = express();
