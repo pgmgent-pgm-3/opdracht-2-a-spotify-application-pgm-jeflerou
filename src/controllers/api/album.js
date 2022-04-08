@@ -34,3 +34,34 @@ export const addAlbum = async (req, res, next) => {
     next(e.message);
   }
 };
+
+export const editAlbum = async (req, res, next) => {
+  try {
+    // validate the incoming body
+    if (!req.body.id)
+      throw new Error('Please provide an id for the album you want to edit');
+
+    // get the album repository
+    const albumRepository = getConnection().getRepository('Album');
+
+    // make sure the album exists
+    const album = albumRepository.findOne({
+      where: {
+        id: req.body.id,
+      },
+    });
+
+    if (!album) {
+      req.status(400).json({
+        status: `There is no album with id:${req.body.id}.`,
+      });
+    }
+
+    albumRepository.save({
+      ...album,
+      ...req.body,
+    });
+  } catch (e) {
+    next(e.message);
+  }
+};
