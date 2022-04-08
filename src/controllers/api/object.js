@@ -47,6 +47,49 @@ export const addObject = async (entityName, req, res, next) => {
   }
 };
 
+export const updateObject = async (entityName, req, res, next) => {
+  try {
+    // change the name so it can be used in output
+    const readableEntityName = entityName.toLowerCase();
+
+    // get the repository
+    const repository = getConnection().getRepository(entityName);
+
+    // get all the properties from the object
+    const validProperties = repository.metadata.propertiesMap;
+
+    // check if the object exists
+    const object = await repository.findOne({
+      where: {
+        name: req.body.name,
+      },
+    });
+
+    const validKeys = Object.keys(validProperties).sort();
+    const objectKeys = Object.keys(req.body).sort();
+    objectKeys.forEach((key) => {
+      if (!validKeys.includes(key)) {
+        req.status(400).json({
+          status: `Please only provide valid properties ${key} is not a valid property.`,
+        });
+      }
+    });
+
+    // check if the object exists
+    if (!object) {
+      req.status(400).json({
+        status: `there already exists an ${readableEntityName} under the name: ${req.body.name}.`,
+      });
+    }
+
+    repository.save({
+      ...req.body,
+    });
+  } catch (e) {
+    next(e.message);
+  }
+};
+
 export const deleteObject = async (entityName, req, res, next) => {
   try {
     // change the name so it can be used in output
