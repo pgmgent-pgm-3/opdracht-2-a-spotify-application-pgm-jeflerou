@@ -7,7 +7,7 @@ import typeorm from 'typeorm';
 const { getConnection } = typeorm;
 export const addArtist = async (req, res, next) => {
   try {
-    // validate the incoming id
+    // validate the incoming body
     if (!req.body.name) throw new Error('Please provide a name for the artist');
 
     // get the artist repository
