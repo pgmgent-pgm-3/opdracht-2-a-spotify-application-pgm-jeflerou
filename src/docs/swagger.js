@@ -28,6 +28,26 @@ export default {
       description:
         'All the create, read, update and delete endpoints for our users',
     },
+    {
+      name: 'Artists',
+      description:
+        'All the create, read, update and delete endpoints for our artists',
+    },
+    {
+      name: 'Songs',
+      description:
+        'All the create, read, update and delete endpoints for our songs',
+    },
+    {
+      name: 'Albums',
+      description:
+        'All the create, read, update and delete endpoints for our albums',
+    },
+    {
+      name: 'Playlist',
+      description:
+        'All the create, read, update and delete endpoints for our playlists',
+    },
   ],
   paths,
   components: {

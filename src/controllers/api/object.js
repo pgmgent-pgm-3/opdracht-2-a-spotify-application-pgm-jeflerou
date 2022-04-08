@@ -5,7 +5,6 @@
 import { getConnection } from 'typeorm';
 
 export const deleteObject = async (entityName, req, res, next) => {
-  // TODO need to add middleware to confirm user has the correct role to preform this action
   try {
     // change the name so it can be used in output
     const readableEntityName = entityName.toLowerCase();

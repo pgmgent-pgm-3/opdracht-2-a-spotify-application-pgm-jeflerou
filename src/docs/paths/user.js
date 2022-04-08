@@ -13,4 +13,12 @@ export default {
       responses: userResponse,
     },
   },
+  '/user/:id': {
+    summary: 'Gets a single user',
+    description: 'Gets a single user based on the provided id ...',
+    get: {
+      tags: ['Users'],
+      responses: userResponse,
+    },
+  },
 };
