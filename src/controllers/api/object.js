@@ -139,7 +139,7 @@ export const getObject = async (entityName, req, res, next) => {
 
     // check if there is an id present if not return the whole list
     if (!id || !userId) {
-      res.status(200).json(
+      return res.status(200).json(
         await repository.find({
           relations: [...relationsArray],
         })
@@ -147,7 +147,7 @@ export const getObject = async (entityName, req, res, next) => {
     }
     if (!userId)
       // return the object based on id
-      res.status(200).json(
+      return res.status(200).json(
         await repository.findOne({
           relations: [...relationsArray],
           where: {
@@ -158,7 +158,7 @@ export const getObject = async (entityName, req, res, next) => {
 
     if (!id) {
       // return the object based on userId
-      res.status(200).json(
+      return res.status(200).json(
         await repository.findOne({
           relations: [...relationsArray],
           where: {
