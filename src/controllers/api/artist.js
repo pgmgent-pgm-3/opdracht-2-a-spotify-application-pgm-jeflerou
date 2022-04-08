@@ -43,7 +43,7 @@ export const updateArtist = async (req, res, next) => {
       );
 
     // check if the user provided valid properties
-    const validProperties = ['id', 'name'];
+    const validProperties = ['id', 'name', 'albums'];
     const unwantedProperties = Object.getOwnPropertyNames(req.body).filter(
       (property) => !validProperties.includes(property)
     );

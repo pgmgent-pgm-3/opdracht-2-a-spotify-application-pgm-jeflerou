@@ -57,6 +57,18 @@ export const editAlbum = async (req, res, next) => {
       });
     }
 
+    // check if the user provided valid properties
+    const validProperties = ['id', 'name', 'artist', 'songs'];
+    const unwantedProperties = Object.getOwnPropertyNames(req.body).filter(
+      (property) => !validProperties.includes(property)
+    );
+    if (unwantedProperties.length !== 0)
+      throw new Error(
+        `You gave a property that isn't defined: ${unwantedProperties.join(
+          ', '
+        )}.`
+      );
+
     albumRepository.save({
       ...album,
       ...req.body,

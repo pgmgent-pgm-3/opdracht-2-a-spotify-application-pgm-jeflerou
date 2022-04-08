@@ -49,6 +49,18 @@ export const updateSong = async (req, res, next) => {
       },
     });
 
+    // check if the user provided valid properties
+    const validProperties = ['id', 'name', 'artist', 'playlist', 'album'];
+    const unwantedProperties = Object.getOwnPropertyNames(req.body).filter(
+      (property) => !validProperties.includes(property)
+    );
+    if (unwantedProperties.length !== 0)
+      throw new Error(
+        `You gave a property that isn't defined: ${unwantedProperties.join(
+          ', '
+        )}.`
+      );
+
     // check if the song exists
     if (!song) {
       req.status(400).json({
