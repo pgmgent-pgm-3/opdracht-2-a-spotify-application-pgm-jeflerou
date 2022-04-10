@@ -3,3 +3,8 @@
 */
 
 @import url("reset.css");
+
+
+.flex-container {
+  display: flex;
+}

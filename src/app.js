@@ -102,7 +102,7 @@ app.delete('/api/user/:id', validateAdmin, (req, res, next) =>
 app.post('/api/artist', validateAdmin, (req, res, next) =>
   addObject('Artist', req, res, next)
 );
-app.put('/api/artist', validateAdmin, validateEditor, (req, res, next) =>
+app.put('/api/artist', validateEditor, (req, res, next) =>
   updateObject('Artist', req, res, next)
 );
 app.delete('/api/artist/:id', validateAdmin, (req, res, next) =>
@@ -111,7 +111,7 @@ app.delete('/api/artist/:id', validateAdmin, (req, res, next) =>
 app.post('/api/song', validateAdmin, (req, res, next) =>
   addObject('Song', req, res, next)
 );
-app.put('/api/song', validateAdmin, validateEditor, (req, res, next) =>
+app.put('/api/song', validateEditor, (req, res, next) =>
   updateObject('Song', req, res, next)
 );
 app.delete('/api/song/:id', validateAdmin, (req, res, next) =>
@@ -122,7 +122,7 @@ app.get('/api/song/:id', (req, res, next) => getObject('Song', req, res, next));
 app.post('/api/album', validateAdmin, (req, res, next) =>
   addObject('Album', req, res, next)
 );
-app.put('/api/album', validateAdmin, validateEditor, (req, res, next) =>
+app.put('/api/album', validateEditor, (req, res, next) =>
   updateObject('Album', req, res, next)
 );
 app.delete('/api/album/:id', validateAdmin, (req, res, next) =>

@@ -61,7 +61,7 @@ export const updateObject = async (entityName, req, res, next) => {
     // check if the object exists
     const object = await repository.findOne({
       where: {
-        name: req.body.name,
+        id: req.body.id,
       },
     });
 
@@ -78,11 +78,12 @@ export const updateObject = async (entityName, req, res, next) => {
     // check if the object exists
     if (!object) {
       req.status(400).json({
-        status: `there already exists an ${readableEntityName} under the name: ${req.body.name}.`,
+        status: `there is no ${readableEntityName} with id: ${req.body.id}.`,
       });
     }
 
     repository.save({
+      ...object,
       ...req.body,
     });
   } catch (e) {
