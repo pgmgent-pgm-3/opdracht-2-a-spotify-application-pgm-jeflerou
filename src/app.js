@@ -99,6 +99,7 @@ app.get('/api/user/:id', validateAdmin, (req, res, next) =>
 app.delete('/api/user/:id', validateAdmin, (req, res, next) =>
   deleteObject('User', req, res, next)
 );
+
 app.post('/api/artist', validateAdmin, (req, res, next) =>
   addObject('Artist', req, res, next)
 );
@@ -108,6 +109,7 @@ app.put('/api/artist', validateEditor, (req, res, next) =>
 app.delete('/api/artist/:id', validateAdmin, (req, res, next) =>
   deleteObject('Artist', req, res, next)
 );
+
 app.post('/api/song', validateAdmin, (req, res, next) =>
   addObject('Song', req, res, next)
 );
@@ -119,6 +121,7 @@ app.delete('/api/song/:id', validateAdmin, (req, res, next) =>
 );
 app.get('/api/songs', (req, res, next) => getObject('Song', req, res, next));
 app.get('/api/song/:id', (req, res, next) => getObject('Song', req, res, next));
+
 app.post('/api/album', validateAdmin, (req, res, next) =>
   addObject('Album', req, res, next)
 );
@@ -132,6 +135,7 @@ app.get('/api/albums', (req, res, next) => getObject('Album', req, res, next));
 app.get('/api/album/:id', (req, res, next) =>
   getObject('Album', req, res, next)
 );
+
 app.post('/api/playlist', validateAdmin, (req, res, next) =>
   addObject('Playlist', req, res, next)
 );
