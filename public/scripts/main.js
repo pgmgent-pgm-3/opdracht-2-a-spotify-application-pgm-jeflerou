@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
 const app = {
   init() {
     this.cacheElements();
@@ -5,6 +7,13 @@ const app = {
     this.songId = 0;
     this.songTime = 0;
     this.volume = 1;
+    this.currentSong = 0;
+    this.songs = [
+      './sounds/rickRoll.mp3',
+      './sounds/allStar.mp3',
+      './sounds/heMan.mp3',
+      './sounds/sax.mp3',
+    ];
   },
   cacheElements() {
     this.$artistEdit = document.querySelectorAll('.artist-edit');
@@ -14,6 +23,8 @@ const app = {
     this.$play = document.querySelectorAll('.play');
     this.$pause = document.querySelectorAll('.pause');
     this.$soundSlider = document.querySelector('.soundSlider');
+    this.$next = document.querySelector('.next-song');
+    this.$previous = document.querySelector('.previous-song');
   },
   playSound(soundPath) {
     this.sound = new Audio(soundPath);
@@ -62,28 +73,24 @@ const app = {
       button.addEventListener(
         'click',
         async (e) => {
-          const id =
-            e.target.parentNode.parentNode.dataset.id ||
-            e.target.parentNode.parentNode.parentNode.dataset.id;
-          if (this.songId !== id) {
-            this.songId = id;
-            this.playSound('./sounds/rickroll.mp3');
+          if (button.innerHTML !== `<i class="fa-solid fa-pause"></i>`) {
+            const id =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            if (this.songId !== id) {
+              this.songId = id;
+              this.playSound('./sounds/rickRoll.mp3');
+            } else {
+              this.sound.currentTime = this.songTime;
+              this.sound.play();
+              this.sound.volume = this.volume;
+            }
+            button.innerHTML = `<i class="fa-solid fa-pause"></i>`;
           } else {
-            this.sound.currentTime = this.songTime;
-            this.sound.play();
-            this.sound.volume = this.volume;
+            this.songTime = this.sound.currentTime;
+            this.sound.volume = 0;
+            button.innerHTML = `<i class="fa-solid fa-play"></i>`;
           }
-        },
-        false
-      );
-    });
-
-    this.$pause.forEach((button) => {
-      button.addEventListener(
-        'click',
-        async () => {
-          this.songTime = this.sound.currentTime;
-          this.sound.volume = 0;
         },
         false
       );
@@ -93,6 +100,19 @@ const app = {
       this.volume = this.$soundSlider.value;
       this.sound.volume = this.volume;
     });
+
+    this.$next.addEventListener(
+      'click',
+      () => {
+        this.sound.volume = 0;
+        this.currentSong <= 3
+          ? (this.currentSong += 1)
+          : (this.currentSong -= 3);
+        this.playSound(this.songs[this.currentSong]);
+        this.sound.volume = this.volume;
+      },
+      false
+    );
   },
 };
 

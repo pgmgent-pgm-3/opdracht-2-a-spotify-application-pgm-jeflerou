@@ -24,6 +24,10 @@ button {
   color: inherit;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 img {
   width: 100%;
 }
@@ -129,6 +133,11 @@ footer {
 .footer-container {
   align-items: center;
   justify-content: space-between;
+}
+
+.controller-button-container {
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .volume {

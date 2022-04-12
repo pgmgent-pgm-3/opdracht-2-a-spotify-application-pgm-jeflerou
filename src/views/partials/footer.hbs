@@ -9,14 +9,29 @@
         </p>
     </div>
     <div class="controller">
-        <div class="button-container flex-container">
-<i class="fa-solid fa-backward"></i>
-<i class="fa-solid fa-circle-play"></i>
-<i class="fa-solid fa-forward"></i>
+        <div class="controller-button-container flex-container">
+            <button class="shuffle">
+                <i class="fa-solid fa-shuffle"></i>
+            </button>
+            <button class="previous-song">
+                <i class="fa-solid fa-backward"></i>
+            </button>
+            <button class="play">
+                <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="next-song">
+                <i class="fa-solid fa-forward"></i>
+            </button>
+            <button class="restart-song">
+                <i class="fa-solid fa-repeat"></i>
+            </button>
+        </div>
+        <div class="progress-bar">
+
         </div>
     </div>
     <div class="volume flex-container">
-        <i class="fa-solid fa-volume"></i>
-        <input type="range" min="0" max="1" value="1" step="0.01" class="soundSlider" >
+        <i class="fa-solid fa-speaker"></i>
+        <input type="range" min="0" max="1" value="1" step="0.01" class="soundSlider">
     </div>
 </div>
