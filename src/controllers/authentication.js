@@ -172,11 +172,6 @@ export const postLogin = async (req, res, next) => {
     );
     const user = users[0];
 
-    const roles = getConnection().getRepository('Role');
-    const role = await roles.findOne({
-      where: { id: user.roleId },
-    });
-
     // check if we found a user
     if (!user) {
       req.formErrors = [
@@ -186,6 +181,11 @@ export const postLogin = async (req, res, next) => {
       ];
       return next();
     }
+
+    const roles = getConnection().getRepository('Role');
+    const role = await roles.findOne({
+      where: { id: user.roleId },
+    });
 
     // check if password is correct
     const isEqual = bcrypt.compareSync(req.body.password, user.password);

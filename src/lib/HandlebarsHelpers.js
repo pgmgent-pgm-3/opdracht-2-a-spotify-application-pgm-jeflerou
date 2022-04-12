@@ -13,4 +13,14 @@ export default {
 
     return `<button>${options.fn()}</button>`;
   },
+  admin(role, options) {
+    if (role === 'admin') {
+      return `${options.fn()}`;
+    }
+  },
+  editor(role, options) {
+    if (role === 'admin' || role === 'editor') {
+      return `${options.fn()}`;
+    }
+  },
 };

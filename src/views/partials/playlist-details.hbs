@@ -1,14 +1,22 @@
-<ul class="songs">
+<div class="songs">
+    <h2>Playlist</h2>
+<ul>
 {{#each songs}}
 
-    <li class="song flex-container">    
+    <li class="song flex-container" data-id="{{id}}">    
         <h2>
             {{ name }}
         </h2>
+        <div class="button-container">
         <button class="play">
             <i class="fa-solid fa-play"></i>
         </button>
+        <button class="pause">
+            <i class="fa-solid fa-pause"></i>
+        </button>
+        </div>
     </li>
 
 {{/each}}
 </ul>
+</div>

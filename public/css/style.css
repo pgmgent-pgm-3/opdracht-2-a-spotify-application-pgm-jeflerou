@@ -120,3 +120,31 @@ footer {
   width: 100%;
   justify-content: space-between;
 }
+
+
+
+/*
+* footer
+*/
+.footer-container {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.volume {
+  color: var(--color-text-primary);
+  width: 20%;
+  align-items: center;
+}
+
+.controller {
+  color: var(--color-text-primary);
+  width: 60%;
+  align-items: center;
+}
+
+.song-description {
+  color: var(--color-text-primary);
+  width: 20%;
+  align-items: center;
+}

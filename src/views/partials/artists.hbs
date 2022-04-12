@@ -1,17 +1,24 @@
-<ul class="artists">
+<div class="artists">
+    <h2 class="artists-title">Artists</h2>
+<ul>
     {{#each artists}}
 
-    <li class="artist flex-container">
+    <li class="artist flex-container" data-id="{{id}}">
         <h2>{{name}}</h2>
         <div class="button-container flex-container">
-            <button class="artist-edit" data-id="{{id}}">
+            {{#editor ../user.role}}
+            <button class="artist-edit">
                 <i class="fa-solid fa-pen-to-square"></i>
             </button>
-            <button class="artist-delete" data-id="{{id}}">
+            {{/editor}}
+            {{#admin ../user.role}}
+            <button class="artist-delete">
                 <i class="fa-solid fa-trash-can"></i>
             </button>
+            {{/admin}}
         </div>
     </li>
 
     {{/each}}
 </ul>
+</div>
