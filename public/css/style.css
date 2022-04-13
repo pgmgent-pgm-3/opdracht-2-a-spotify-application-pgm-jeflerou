@@ -98,6 +98,10 @@ footer {
   align-items: center;
 }
 
+.playlist h2:hover {
+  cursor: pointer;
+}
+
 .album {
   color: var(--color-text-primary);
 }

@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
+
 const app = {
   init() {
     this.cacheElements();
@@ -32,6 +33,8 @@ const app = {
     this.$addPlaylist = document.querySelector('.add-playlist');
     this.$shuffle = document.querySelector('.shuffle');
     this.$restart = document.querySelector('.restart-song');
+    // test
+    this.$playlists = document.querySelectorAll('.playlist');
   },
   playSound(soundPath) {
     this.sound = new Audio(soundPath);
@@ -45,6 +48,17 @@ const app = {
     console.log(this.duration);
   },
   registerListeners() {
+    this.$playlists.forEach((playlist) => {
+      playlist.addEventListener(
+        'click',
+        (e) => {
+          const { id } = e.target.parentNode.dataset;
+          console.log(id);
+        },
+        false
+      );
+    });
+
     if (this.$playlistDelete) {
       this.$artistDelete.forEach((button) => {
         button.addEventListener(
@@ -139,14 +153,14 @@ const app = {
           this.sound.onended = () => {};
         }
         if (!this.shuffle) {
-          this.currentSong < this.songs.length
+          this.currentSong < this.songs.length - 1
             ? (this.currentSong += 1)
             : (this.currentSong = 0);
           this.playSound(this.songs[this.currentSong]);
           this.sound.volume = this.volume;
         } else {
           this.playSound(
-            this.songs[Math.floor(Math.random() * this.songs.length)]
+            this.songs[Math.floor(Math.random() * this.songs.length - 1)]
           );
           this.sound.volume = this.volume;
         }
@@ -163,7 +177,7 @@ const app = {
           this.sound.onended = () => {};
         }
         if (!this.shuffle) {
-          this.currentSong >= 0
+          this.currentSong > 0
             ? (this.currentSong -= 1)
             : (this.currentSong = this.songs.length - 1);
           this.playSound(this.songs[this.currentSong]);

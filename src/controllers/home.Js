@@ -24,7 +24,13 @@ export const home = async (req, res, next) => {
     });
     const albums = await albumRepository.find();
 
-    res.render('home', { playlists, artists, songs, albums, user });
+    res.render('home', {
+      playlists,
+      artists,
+      songs,
+      albums,
+      user,
+    });
   } catch (e) {
     next(e.message);
   }
