@@ -10,9 +10,11 @@ const app = {
     this.currentSong = 0;
     this.songs = [
       './sounds/rickRoll.mp3',
+      './sounds/nyan.mp3',
       './sounds/allStar.mp3',
       './sounds/heMan.mp3',
       './sounds/sax.mp3',
+      './sounds/friday.mp3',
     ];
   },
   cacheElements() {
@@ -25,6 +27,8 @@ const app = {
     this.$soundSlider = document.querySelector('.soundSlider');
     this.$next = document.querySelector('.next-song');
     this.$previous = document.querySelector('.previous-song');
+    this.$addArtist = document.querySelector('.add-artist');
+    this.$addPlaylist = document.querySelector('.add-playlist');
   },
   playSound(soundPath) {
     this.sound = new Audio(soundPath);
@@ -112,9 +116,9 @@ const app = {
       'click',
       () => {
         this.sound.volume = 0;
-        this.currentSong <= 3
+        this.currentSong <= this.songs.length
           ? (this.currentSong += 1)
-          : (this.currentSong -= 3);
+          : (this.currentSong -= this.songs.length);
         this.playSound(this.songs[this.currentSong]);
         this.sound.volume = this.volume;
       },
@@ -127,9 +131,43 @@ const app = {
         this.sound.volume = 0;
         this.currentSong >= 0
           ? (this.currentSong -= 1)
-          : (this.currentSong += 3);
+          : (this.currentSong += this.songs.length);
         this.playSound(this.songs[this.currentSong]);
         this.sound.volume = this.volume;
+      },
+      false
+    );
+
+    this.$addArtist.addEventListener(
+      'click',
+      async () => {
+        const name = document.getElementById('add-artist').value;
+        await fetch(`http://localhost:3000/api/artist`, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ name: `${name}` }),
+        });
+        console.log('before');
+        document.location.reload();
+        console.log('after');
+      },
+      false
+    );
+
+    this.$addPlaylist.addEventListener(
+      'click',
+      async () => {
+        const name = document.getElementById('add-playlist').value;
+        await fetch(`http://localhost:3000/api/playlist`, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ name: `${name}` }),
+        });
+        document.location.reload();
       },
       false
     );

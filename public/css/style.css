@@ -82,6 +82,10 @@ footer {
   border-right: 2px solid var(--color-border-primary);
 }
 
+.playlists ul {
+  height: 90%;
+}
+
 .playlist {
   padding: 0.5rem;
   width: 100%;
@@ -119,10 +123,18 @@ footer {
   border-left: 2px solid var(--color-border-primary);
 }
 
+.artists ul {
+  height: 90%;
+}
+
 .artist {
   padding: 0.5rem;
   width: 100%;
   justify-content: space-between;
+}
+
+.new-artist {
+  color: var(--color-text-primary);
 }
 
 
