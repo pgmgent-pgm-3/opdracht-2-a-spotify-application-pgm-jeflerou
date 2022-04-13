@@ -74,6 +74,7 @@ const app = {
         'click',
         async (e) => {
           if (button.innerHTML !== `<i class="fa-solid fa-pause"></i>`) {
+            this.sound ? (this.sound.volume = 0) : '';
             const id =
               e.target.parentNode.parentNode.dataset.id ||
               e.target.parentNode.parentNode.parentNode.dataset.id;
@@ -86,10 +87,16 @@ const app = {
               this.sound.volume = this.volume;
             }
             button.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+            document.querySelector(
+              '.controller-play'
+            ).innerHTML = `<i class="fa-solid fa-pause"></i>`;
           } else {
             this.songTime = this.sound.currentTime;
             this.sound.volume = 0;
             button.innerHTML = `<i class="fa-solid fa-play"></i>`;
+            document.querySelectorAll('.play').forEach((pause) => {
+              pause.innerHTML = `<i class="fa-solid fa-play"></i>`;
+            });
           }
         },
         false
@@ -108,6 +115,19 @@ const app = {
         this.currentSong <= 3
           ? (this.currentSong += 1)
           : (this.currentSong -= 3);
+        this.playSound(this.songs[this.currentSong]);
+        this.sound.volume = this.volume;
+      },
+      false
+    );
+
+    this.$previous.addEventListener(
+      'click',
+      () => {
+        this.sound.volume = 0;
+        this.currentSong >= 0
+          ? (this.currentSong -= 1)
+          : (this.currentSong += 3);
         this.playSound(this.songs[this.currentSong]);
         this.sound.volume = this.volume;
       },
