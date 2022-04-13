@@ -11,6 +11,7 @@
   --color-background-primary: #1f2023;
   --color-background-secondary: #161518;
   --color-text-primary: #FFFFFF;
+  --color-text-secondary: #09bb09;
   --color-border-primary: #2c2d30;
 }
 
@@ -69,6 +70,10 @@ footer {
   justify-content: space-between;
 }
 
+.active {
+  color: var(--color-text-secondary);
+}
+
 
 
 /*
@@ -90,6 +95,11 @@ footer {
   padding: 0.5rem;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+}
+
+.album {
+  color: var(--color-text-primary);
 }
 
 

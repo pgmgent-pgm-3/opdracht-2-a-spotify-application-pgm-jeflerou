@@ -1,19 +1,32 @@
 <div class="songs">
     <h2>Playlist</h2>
-<ul>
-{{#each songs}}
+    <ul>
+        {{#each songs}}
 
-    <li class="song flex-container" data-id="{{id}}">    
-        <h2>
-            {{ name }}
-        </h2>
-        <div class="button-container">
-        <button class="play" id="{{id}}">
-            <i class="fa-solid fa-play"></i>
-        </button>
-        </div>
-    </li>
+        <li class="song flex-container" data-id="{{id}}">
+            <div class="flex-container">
+                <div class="image-container">
+                    <img src="/images/cover.jpg" alt="cover">
+                </div>
+                <h2>
+                    {{ name }}
+                </h2>
+            </div>
+            <div class="album">
+                {{#album album.id ../albums}}
+                {{/album}}
+            </div>
+            <div class="singer">
+                {{#artist artist.id ../artists}}
+                {{/artist}}
+            </div>
+            <div class="button-container">
+                <button class="play" id="{{id}}">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+        </li>
 
-{{/each}}
-</ul>
+        {{/each}}
+    </ul>
 </div>

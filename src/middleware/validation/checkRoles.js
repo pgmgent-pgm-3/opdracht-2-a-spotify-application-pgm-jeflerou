@@ -10,7 +10,7 @@ export default (req, res, next) => {
     req.body.role = req.body.role.toLowerCase();
 
     if (roles.includes(req.body.role)) {
-      next();
+      return next();
     }
     req.formErrors = [
       {

@@ -12,12 +12,19 @@ export const home = async (req, res, next) => {
     const playlistRepository = getConnection().getRepository('Playlist');
     const artistRepository = getConnection().getRepository('Artist');
     const songRepository = getConnection().getRepository('Song');
+    const albumRepository = getConnection().getRepository('Album');
+
+    const { relations } = songRepository.metadata;
+    const relationsArray = relations.map((relation) => relation.propertyName);
 
     const playlists = await playlistRepository.find();
     const artists = await artistRepository.find();
-    const songs = await songRepository.find();
+    const songs = await songRepository.find({
+      relations: [...relationsArray],
+    });
+    const albums = await albumRepository.find();
 
-    res.render('home', { playlists, artists, songs, user });
+    res.render('home', { playlists, artists, songs, albums, user });
   } catch (e) {
     next(e.message);
   }

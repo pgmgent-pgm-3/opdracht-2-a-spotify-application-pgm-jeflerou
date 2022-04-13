@@ -23,4 +23,10 @@ export default {
       return `${options.fn()}`;
     }
   },
+  album(id, albums) {
+    return albums.find((album) => album.id === id).name;
+  },
+  artist(id, artists) {
+    return artists.find((artist) => artist.id === id).name;
+  },
 };
