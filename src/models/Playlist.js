@@ -23,7 +23,7 @@ export default new EntitySchema({
     songs: {
       target: 'Song',
       type: 'many-to-many',
-      joinTable: true,
+      joinTable: { name: 'playlist_song' },
     },
     users: {
       target: 'User',

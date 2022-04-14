@@ -1,5 +1,12 @@
 <div class="songs">
-    <h2>Playlist</h2>
+    <div class="flex-container playlist-details-header">
+        <h2> {{playlist.name}} </h2>
+        <select>
+            {{#each songs}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
     <ul>
         {{#each songs}}
 

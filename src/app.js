@@ -73,6 +73,7 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  */
 
 app.get('/', jwtAuth, home);
+app.get('/playlist/:id', home);
 
 app.get('/register', register);
 app.get('/login', login);

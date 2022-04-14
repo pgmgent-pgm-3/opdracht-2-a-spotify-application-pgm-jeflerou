@@ -12,6 +12,7 @@
   --color-background-secondary: #161518;
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #09bb09;
+  --color-text-tertiary: #09bb097e;
   --color-border-primary: #2c2d30;
 }
 
@@ -110,12 +111,25 @@ footer {
   align-items: center;
 }
 
-.playlist h2:hover {
+.playlist:hover {
+  border-left: 2px solid var(--color-text-tertiary);
+}
+
+.playlist a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.playlist a:hover {
   cursor: pointer;
 }
 
 .album {
   color: var(--color-text-primary);
+}
+
+.playlist-details-header {
+  justify-content: space-between;
 }
 
 

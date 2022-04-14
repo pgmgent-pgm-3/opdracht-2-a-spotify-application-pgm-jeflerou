@@ -30,7 +30,7 @@ export default new EntitySchema({
     playlists: {
       target: 'Playlist',
       type: 'many-to-many',
-      joinTable: true,
+      joinTable: { name: 'playlist_song' },
     },
     album: {
       target: 'Album',

@@ -39,7 +39,7 @@ const app = {
     this.$playlists = document.querySelectorAll('.playlist');
   },
   playSound(soundPath) {
-    this.sound = new Audio(soundPath);
+    this.sound = new Audio(`../${soundPath}`);
     this.sound.play();
     this.sound.onended = () => {
       this.$next.click();
@@ -50,17 +50,6 @@ const app = {
     console.log(this.duration);
   },
   registerListeners() {
-    this.$playlists.forEach((playlist) => {
-      playlist.addEventListener(
-        'click',
-        (e) => {
-          const { id } = e.target.parentNode.dataset;
-          console.log(id);
-        },
-        false
-      );
-    });
-
     if (this.$playlistDelete) {
       this.$artistDelete.forEach((button) => {
         button.addEventListener(
@@ -223,7 +212,8 @@ const app = {
     if (this.$addArtist) {
       this.$addArtist.addEventListener(
         'click',
-        async () => {
+        async (e) => {
+          e.preventDefault();
           const name = document.getElementById('add-artist').value;
           await fetch(`http://localhost:3000/api/artist`, {
             method: 'POST',

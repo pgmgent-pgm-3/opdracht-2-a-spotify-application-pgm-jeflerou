@@ -1,10 +1,11 @@
 <div class="playlists">
     <h2 class="playlists-title">Playlists</h2>
     <ul>
+        {{log playlists}}
         {{#each playlists}}
 
         <li class="playlist flex-container" data-id="{{id}}">
-            <h2>{{name}}</h2>
+            <a href="/playlist/{{id}}">{{name}}</a>
             <div class="button-container flex-container">
                 {{#editor ../user.role}}
                 <button class="playlist-edit">

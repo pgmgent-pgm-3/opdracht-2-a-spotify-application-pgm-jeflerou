@@ -18,13 +18,30 @@ export const home = async (req, res, next) => {
     const relationsArray = relations.map((relation) => relation.propertyName);
 
     const playlists = await playlistRepository.find();
-    const artists = await artistRepository.find();
-    const songs = await songRepository.find({
-      relations: [...relationsArray],
+    const playlistId = req.params?.id ? req.params?.id : '1';
+    const playlist = await playlistRepository.findOne({
+      relations: ['songs'],
+      where: {
+        id: playlistId,
+      },
     });
+    const artists = await artistRepository.find();
+    const songs = await Promise.all(
+      playlist.songs.map(
+        async (song) =>
+          // eslint-disable-next-line no-return-await
+          await songRepository.findOne({
+            relations: relationsArray,
+            where: {
+              id: song.id,
+            },
+          })
+      )
+    );
     const albums = await albumRepository.find();
 
     res.render('home', {
+      playlist,
       playlists,
       artists,
       songs,
