@@ -18,6 +18,8 @@ const app = {
       './sounds/friday.mp3',
       './sounds/coffin.mp3',
     ];
+    this.changeCurrentPlaylist();
+    this.changeTheme();
   },
   cacheElements() {
     this.$artistEdit = document.querySelectorAll('.artist-edit');
@@ -33,7 +35,7 @@ const app = {
     this.$addPlaylist = document.querySelector('.add-playlist');
     this.$shuffle = document.querySelector('.shuffle');
     this.$restart = document.querySelector('.restart-song');
-    // test
+    this.$theme = document.querySelector('.theme-switcher');
     this.$playlists = document.querySelectorAll('.playlist');
   },
   playSound(soundPath) {
@@ -160,10 +162,13 @@ const app = {
           this.sound.volume = this.volume;
         } else {
           this.playSound(
-            this.songs[Math.floor(Math.random() * this.songs.length - 1)]
+            this.songs[Math.floor(Math.random() * (this.songs.length - 1))]
           );
           this.sound.volume = this.volume;
         }
+        document.querySelector(
+          '.controller-play'
+        ).innerHTML = `<i class="fa-solid fa-pause"></i>`;
         this.getDuration();
       },
       false
@@ -188,6 +193,9 @@ const app = {
           );
           this.sound.volume = this.volume;
         }
+        document.querySelector(
+          '.controller-play'
+        ).innerHTML = `<i class="fa-solid fa-pause"></i>`;
         this.getDuration();
       },
       false
@@ -248,6 +256,39 @@ const app = {
         },
         false
       );
+    }
+
+    this.$theme.addEventListener(
+      'click',
+      () => {
+        const $body = document.querySelector('body');
+        $body.classList.toggle('theme-dark');
+        $body.classList.toggle('theme-light');
+        if ($body.classList.contains('theme-dark')) {
+          localStorage.setItem('theme', 'theme-dark');
+        } else {
+          localStorage.setItem('theme', 'theme-light');
+        }
+      },
+      false
+    );
+  },
+
+  changeCurrentPlaylist() {
+    const url = new URL(window.location.href);
+    const playlistId = url.href.charAt(url.href.length - 1);
+    this.$playlists.forEach((playlist) => {
+      if (playlist.dataset.id === playlistId) {
+        playlist.classList.toggle('current-playlist');
+      }
+    });
+  },
+
+  changeTheme() {
+    const $body = document.querySelector('body');
+    if (!$body.classList.contains(localStorage.getItem('theme'))) {
+      $body.classList.remove(...$body.classList);
+      $body.classList.add(localStorage.getItem('theme'));
     }
   },
 };

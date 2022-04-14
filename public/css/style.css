@@ -15,6 +15,14 @@
   --color-border-primary: #2c2d30;
 }
 
+.theme-light {
+  --color-background-primary: #e3e9fd;
+  --color-background-secondary: #f0eef5;
+  --color-text-primary: #000000;
+  --color-text-secondary: #09bb09;
+  --color-border-primary: #2c2d30;
+}
+
 
 /*
 * element styles
@@ -85,6 +93,10 @@ footer {
   background-color: var(--color-background-primary);
   color: var(--color-text-primary);
   border-right: 2px solid var(--color-border-primary);
+}
+
+.current-playlist {
+  border-left: 2px solid var(--color-text-secondary);
 }
 
 .playlists ul {
