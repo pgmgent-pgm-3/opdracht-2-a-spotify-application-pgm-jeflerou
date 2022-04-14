@@ -18,7 +18,7 @@ export const home = async (req, res, next) => {
     const relationsArray = relations.map((relation) => relation.propertyName);
 
     const playlists = await playlistRepository.find();
-    const playlistId = req.params?.id ? req.params?.id : '1';
+    const playlistId = req.params?.id ? req.params?.id : '';
     const playlist = await playlistRepository.findOne({
       relations: ['songs'],
       where: {
@@ -26,6 +26,9 @@ export const home = async (req, res, next) => {
       },
     });
     const artists = await artistRepository.find();
+    let otherSongs = await songRepository.find({
+      relations: relationsArray,
+    });
     const songs = await Promise.all(
       playlist.songs.map(
         async (song) =>
@@ -38,6 +41,9 @@ export const home = async (req, res, next) => {
           })
       )
     );
+    otherSongs = otherSongs.filter(
+      (otherSong) => !songs.find((song) => song.id === otherSong.id)
+    );
     const albums = await albumRepository.find();
 
     res.render('home', {
@@ -45,6 +51,7 @@ export const home = async (req, res, next) => {
       playlists,
       artists,
       songs,
+      otherSongs,
       albums,
       user,
     });

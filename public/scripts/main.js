@@ -37,6 +37,7 @@ const app = {
     this.$restart = document.querySelector('.restart-song');
     this.$theme = document.querySelector('.theme-switcher');
     this.$playlists = document.querySelectorAll('.playlist');
+    this.$addSongPlaylist = document.querySelector('.add-song-playlist');
   },
   playSound(soundPath) {
     this.sound = new Audio(`../${soundPath}`);
@@ -262,6 +263,26 @@ const app = {
       },
       false
     );
+
+    if (this.$addSongPlaylist) {
+      this.$addSongPlaylist.addEventListener(
+        'click',
+        async () => {
+          const url = new URL(window.location.href);
+          const pId = url.href.charAt(url.href.length - 1);
+          const sId = document.querySelector('.new-song').value;
+          await fetch(`http://localhost:3000/api/playlist/addSong`, {
+            method: 'PUT',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ playlistId: pId, songsId: sId }),
+          });
+          document.location.reload();
+        },
+        false
+      );
+    }
   },
 
   changeCurrentPlaylist() {

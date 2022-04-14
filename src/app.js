@@ -29,6 +29,7 @@ import roleValidation from './middleware/validation/checkRoles.js';
 import validateAdmin from './middleware/validation/adminAuthorization.js';
 import validateEditor from './middleware/validation/editorAuthorization.js';
 import { jwtAuth } from './middleware/jwtAuth.js';
+import { addSongPlaylist } from './controllers/api/playlist.js';
 
 const app = express();
 app.use(express.static('public'));
@@ -72,8 +73,7 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  * App routing
  */
 
-app.get('/', jwtAuth, home);
-app.get('/playlist/:id', home);
+app.get('/playlist/:id', jwtAuth, home);
 
 app.get('/register', register);
 app.get('/login', login);
@@ -140,7 +140,7 @@ app.get('/api/album/:id', (req, res, next) =>
 app.post('/api/playlist', validateAdmin, (req, res, next) =>
   addObject('Playlist', req, res, next)
 );
-app.put('/api/playlist', validateAdmin, validateEditor, (req, res, next) =>
+app.put('/api/playlist', validateEditor, (req, res, next) =>
   updateObject('Playlist', req, res, next)
 );
 app.delete('/api/playlist/:id', validateAdmin, (req, res, next) =>
@@ -155,8 +155,8 @@ app.get('/api/playlist/:id', (req, res, next) =>
 app.get('/api/playlist/:userId', (req, res, next) =>
   getObject('Playlist', req, res, next)
 );
-app.post('/api/playlist/addSong', validateAdmin, (req, res, next) =>
-  addObject('Song', req, res, next)
+app.put('/api/playlist/addSong', validateEditor, (req, res, next) =>
+  addSongPlaylist(req, res, next)
 );
 
 /**

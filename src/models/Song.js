@@ -31,6 +31,7 @@ export default new EntitySchema({
       target: 'Playlist',
       type: 'many-to-many',
       joinTable: { name: 'playlist_song' },
+      cascade: true,
     },
     album: {
       target: 'Album',

@@ -11,8 +11,8 @@ export default (req, res, next) => {
     }
     const user = jwt.verify(token, process.env.TOKEN_SALT);
 
-    if (user.role !== 'editor' || user.role !== 'admin') {
-      res.status(500).json({
+    if (!(user.role === 'editor' || user.role === 'admin')) {
+      return res.status(500).json({
         status: `only an admin or an editor can preform this action.`,
       });
     }

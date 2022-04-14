@@ -24,6 +24,7 @@ export default new EntitySchema({
       target: 'Song',
       type: 'many-to-many',
       joinTable: { name: 'playlist_song' },
+      cascade: true,
     },
     users: {
       target: 'User',

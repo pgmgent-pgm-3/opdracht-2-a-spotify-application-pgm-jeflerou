@@ -63,7 +63,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   if (req.cookies.token) {
-    res.redirect('/');
+    res.redirect('/playlist/1');
     return;
   }
 
@@ -219,7 +219,7 @@ export const postLogin = async (req, res, next) => {
     });
 
     // redirect to home page
-    res.redirect('/');
+    res.redirect('/playlist/1');
   } catch (e) {
     next(e.message);
   }

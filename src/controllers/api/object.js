@@ -69,7 +69,7 @@ export const updateObject = async (entityName, req, res, next) => {
     const objectKeys = Object.keys(req.body).sort();
     objectKeys.forEach((key) => {
       if (!validKeys.includes(key)) {
-        req.status(400).json({
+        return res.status(400).json({
           status: `Please only provide valid properties ${key} is not a valid property.`,
         });
       }
@@ -77,7 +77,7 @@ export const updateObject = async (entityName, req, res, next) => {
 
     // check if the object exists
     if (!object) {
-      req.status(400).json({
+      return res.status(400).json({
         status: `there is no ${readableEntityName} with id: ${req.body.id}.`,
       });
     }
