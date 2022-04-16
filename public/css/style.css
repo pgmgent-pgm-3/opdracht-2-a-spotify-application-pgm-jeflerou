@@ -248,3 +248,21 @@ footer {
   background: var(--color-background-secondary);
   color: var(--color-text-primary);
 }
+
+.login .image-container, .register .image-container {
+  margin: 0 auto;
+  width: 8rem;
+}
+
+.login form, .register form {
+  padding: 1rem;
+}
+
+.input-container{
+  margin-bottom: 0.2;
+}
+
+.login a, .register a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+}
