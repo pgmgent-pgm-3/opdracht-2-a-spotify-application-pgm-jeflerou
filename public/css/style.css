@@ -28,6 +28,10 @@
 /*
 * element styles
 */
+body {
+  background: var(--color-background-primary);
+}
+
 button {
   background-color: inherit;
   border: none;
@@ -148,6 +152,17 @@ footer {
   padding: 0.5rem;
   width: 100%;
   justify-content: space-between;
+  position: relative;
+}
+
+.song .button-container {
+  margin-right: 1rem;
+}
+
+.remove-song {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 
@@ -208,4 +223,28 @@ footer {
   color: var(--color-text-primary);
   width: 20%;
   align-items: center;
+}
+
+.song-info {
+  display: block;
+}
+
+
+
+/*
+* login
+*/
+
+#authentication {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login, .register {
+  width: 40%;
+  height: fit-content;
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
 }

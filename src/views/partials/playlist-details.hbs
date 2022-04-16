@@ -37,6 +37,13 @@
                     <i class="fa-solid fa-play"></i>
                 </button>
             </div>
+            {{#editor ../user.role}}
+            <div class="remove-song">
+                <button class="playlist-remove-song">
+                    <i class="fa-solid fa-circle-minus"></i>
+                </button>
+            </div>
+            {{/editor}}
         </li>
 
         {{/each}}

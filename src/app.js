@@ -29,7 +29,10 @@ import roleValidation from './middleware/validation/checkRoles.js';
 import validateAdmin from './middleware/validation/adminAuthorization.js';
 import validateEditor from './middleware/validation/editorAuthorization.js';
 import { jwtAuth } from './middleware/jwtAuth.js';
-import { addSongPlaylist } from './controllers/api/playlist.js';
+import {
+  addSongPlaylist,
+  removeSongPlaylist,
+} from './controllers/api/playlist.js';
 
 const app = express();
 app.use(express.static('public'));
@@ -157,6 +160,9 @@ app.get('/api/playlist/:userId', (req, res, next) =>
 );
 app.put('/api/playlist/addSong', validateEditor, (req, res, next) =>
   addSongPlaylist(req, res, next)
+);
+app.put('/api/playlist/removeSong', validateEditor, (req, res, next) =>
+  removeSongPlaylist(req, res, next)
 );
 
 /**

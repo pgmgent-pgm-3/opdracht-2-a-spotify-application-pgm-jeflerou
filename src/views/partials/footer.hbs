@@ -1,13 +1,14 @@
 <div class="flex-container footer-container">
-    <div class="song-description">
+    <div class="song-description flex-container">
         <div class="image-container">
             <img src="/images/playlistCover.jpg" alt="cover">
         </div>
         <h3>
-
+            {{songs.0.name}}
         </h3>
         <p>
-
+            <span class="song-info">{{songs.0.artist.name}}</span>
+            <span class="song-info">{{songs.0.album.name}}</span>
         </p>
     </div>
     <div class="controller">

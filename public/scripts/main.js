@@ -38,6 +38,9 @@ const app = {
     this.$theme = document.querySelector('.theme-switcher');
     this.$playlists = document.querySelectorAll('.playlist');
     this.$addSongPlaylist = document.querySelector('.add-song-playlist');
+    this.$removeSongPlaylist = document.querySelectorAll(
+      '.playlist-remove-song'
+    );
   },
   playSound(soundPath) {
     this.sound = new Audio(`../${soundPath}`);
@@ -51,7 +54,7 @@ const app = {
     console.log(this.duration);
   },
   registerListeners() {
-    if (this.$playlistDelete) {
+    if (this.$artistDelete) {
       this.$artistDelete.forEach((button) => {
         button.addEventListener(
           'click',
@@ -282,6 +285,30 @@ const app = {
         },
         false
       );
+    }
+
+    if (this.$removeSongPlaylist) {
+      this.$removeSongPlaylist.forEach((button) => {
+        button.addEventListener(
+          'click',
+          async (e) => {
+            const id =
+              e.target.parentNode.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
+            const url = new URL(window.location.href);
+            const pId = url.href.charAt(url.href.length - 1);
+            await fetch(`http://localhost:3000/api/playlist/removeSong`, {
+              method: 'PUT',
+              headers: {
+                'Content-type': 'application/json',
+              },
+              body: JSON.stringify({ playlistId: pId, songsId: id }),
+            });
+            document.location.reload();
+          },
+          false
+        );
+      });
     }
   },
 
