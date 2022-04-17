@@ -92,13 +92,27 @@ footer {
 }
 
 .modal {
-  /* width: 20rem;
-  height: 20rem; */
   background-color: var(--color-background-primary);
   position: absolute;
   top: 50vh;
   right: 42vw;
   color: var(--color-text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
 }
 
 
@@ -174,6 +188,10 @@ footer {
   height: 80vh;
   background-color: var(--color-background-secondary);
   color: var(--color-text-primary);
+  overflow-y: scroll;
+}
+
+.songs ul {
   overflow-y: scroll;
 }
 

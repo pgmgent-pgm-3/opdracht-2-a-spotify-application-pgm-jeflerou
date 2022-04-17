@@ -3,7 +3,6 @@
     <div class="albums">
         <ul>
             {{#each filteredAlbums}}
-            {{log this}}
             <li class="album flex-container" data-id="{{id}}">
                 <div class="container">
                     <h3>
@@ -15,7 +14,6 @@
                 </div>
                 <ul class="album-songs">
                     {{#each ../filteredSongs}}
-                    {{log this}}
                     <li class="album-song flex-container" data-id="{{id}}">
                         <span class="song-title-albums">{{#song ../id this}}{{/song}}</span>
                         <div class="button-container">

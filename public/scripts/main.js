@@ -60,10 +60,8 @@ const app = {
   },
   getDuration() {
     this.duration = this.sound.duration;
-    console.log(this.duration);
   },
   registerListeners() {
-    console.log(this.$addSong);
     if (this.$addAlbum) {
       this.$addAlbum.addEventListener(
         'click',
@@ -90,13 +88,11 @@ const app = {
         button.addEventListener(
           'click',
           async (e) => {
-            console.log('test');
             const albumId = parseInt(
               e.target.parentNode.parentNode.parentNode.dataset.id ||
                 e.target.parentNode.parentNode.parentNode.parentNode.dataset.id,
               10
             );
-            console.log(albumId);
             const url = new URL(window.location.href);
             const artistId = parseInt(url.href.charAt(url.href.length - 1), 10);
             e.preventDefault();
@@ -207,7 +203,6 @@ const app = {
             document.querySelector('.new-name-button').addEventListener(
               'click',
               async () => {
-                console.log(document.querySelector('.new-name').value);
                 await fetch(`http://localhost:3000/api/song`, {
                   method: 'PUT',
                   headers: {
@@ -241,7 +236,6 @@ const app = {
             document.querySelector('.new-name-button').addEventListener(
               'click',
               async () => {
-                console.log(document.querySelector('.new-name').value);
                 await fetch(`http://localhost:3000/api/artist`, {
                   method: 'PUT',
                   headers: {
@@ -275,7 +269,6 @@ const app = {
             document.querySelector('.new-name-button').addEventListener(
               'click',
               async () => {
-                console.log(document.querySelector('.new-name').value);
                 await fetch(`http://localhost:3000/api/playlist`, {
                   method: 'PUT',
                   headers: {
@@ -468,7 +461,6 @@ const app = {
             },
             body: JSON.stringify({ name: `${name}` }),
           });
-          console.log('before');
           document.location.reload();
         },
         false
@@ -487,7 +479,6 @@ const app = {
             },
             body: JSON.stringify({ name: `${name}` }),
           });
-          console.log('before');
           document.location.reload();
         },
         false
