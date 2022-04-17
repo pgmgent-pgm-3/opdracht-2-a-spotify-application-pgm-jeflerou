@@ -4,10 +4,4 @@ import song from './song.js';
 import playlist from './playlist.js';
 import artist from './artist.js';
 
-export default {
-  ...user,
-  ...album,
-  ...song,
-  ...playlist,
-  ...artist,
-};
+export default [user, album, song, playlist, artist];

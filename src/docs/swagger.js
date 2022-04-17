@@ -44,7 +44,7 @@ export default {
         'All the create, read, update and delete endpoints for our albums',
     },
     {
-      name: 'Playlist',
+      name: 'Playlists',
       description:
         'All the create, read, update and delete endpoints for our playlists',
     },

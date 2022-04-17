@@ -209,7 +209,7 @@ export const postLogin = async (req, res, next) => {
       },
       process.env.TOKEN_SALT,
       {
-        expiresIn: '1h',
+        expiresIn: '6h',
       }
     );
 

@@ -2,7 +2,7 @@
  * The user paths
  */
 
-import userResponse from '../responses/user.js';
+import userResponse from '../responses/index.js';
 
 export default {
   '/users': {
