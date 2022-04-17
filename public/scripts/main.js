@@ -163,6 +163,9 @@ const app = {
         button.addEventListener(
           'click',
           (e) => {
+            const url = new URL(window.location.href);
+            // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
+            const artistId = /[^/]*$/.exec(url.href)[0];
             const albumId =
               e.target.parentNode.parentNode.dataset.id ||
               e.target.parentNode.parentNode.parentNode.dataset.id;
@@ -179,6 +182,7 @@ const app = {
                   body: JSON.stringify({
                     id: albumId,
                     name: document.querySelector('.new-name').value,
+                    artist: artistId,
                   }),
                 });
                 document.location.reload();
