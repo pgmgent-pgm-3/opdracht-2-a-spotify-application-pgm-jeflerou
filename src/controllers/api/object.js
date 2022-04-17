@@ -58,8 +58,13 @@ export const updateObject = async (entityName, req, res, next) => {
     // get all the properties from the object
     const validProperties = repository.metadata.propertiesMap;
 
+    // get the relations from the repository
+    const { relations } = repository.metadata;
+    const relationsArray = relations.map((relation) => relation.propertyName);
+
     // check if the object exists
     const object = await repository.findOne({
+      relations: relationsArray,
       where: {
         id: req.body.id,
       },
