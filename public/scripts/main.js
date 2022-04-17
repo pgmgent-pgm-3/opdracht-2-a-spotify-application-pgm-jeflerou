@@ -89,16 +89,15 @@ const app = {
         button.addEventListener(
           'click',
           async (e) => {
-            const albumId = parseInt(
+            let albumId =
               e.target.parentNode.parentNode.parentNode.dataset.id ||
-                e.target.parentNode.parentNode.parentNode.parentNode.dataset.id,
-              10
-            );
+              e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
             const url = new URL(window.location.href);
             // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
             const artistId = /[^/]*$/.exec(url.href)[0];
             e.preventDefault();
-            const name = document.getElementById('add-song').value;
+            const name = document.getElementById(albumId).value;
+            albumId = parseInt(albumId, 10);
             await fetch(`http://localhost:3000/api/song`, {
               method: 'POST',
               headers: {
