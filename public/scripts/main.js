@@ -68,7 +68,7 @@ const app = {
         async (e) => {
           const url = new URL(window.location.href);
           // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
-          const artistId = parseInt(/[^/]*$/.exec(url.href)[0], 10);
+          const artistId = /[^/]*$/.exec(url.href)[0];
           e.preventDefault();
           const name = document.getElementById('add-album').value;
           await fetch(`http://localhost:3000/api/album`, {
@@ -96,7 +96,7 @@ const app = {
             );
             const url = new URL(window.location.href);
             // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
-            const artistId = parseInt(/[^/]*$/.exec(url.href)[0], 10);
+            const artistId = /[^/]*$/.exec(url.href)[0];
             e.preventDefault();
             const name = document.getElementById('add-song').value;
             await fetch(`http://localhost:3000/api/song`, {
@@ -508,7 +508,7 @@ const app = {
         async () => {
           const url = new URL(window.location.href);
           // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
-          const pId = parseInt(/[^/]*$/.exec(url.href)[0], 10);
+          const pId = /[^/]*$/.exec(url.href)[0];
           const sId = document.querySelector('.new-song').value;
           await fetch(`http://localhost:3000/api/playlist/addSong`, {
             method: 'PUT',
@@ -533,7 +533,7 @@ const app = {
               e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
             const url = new URL(window.location.href);
             // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
-            const pId = parseInt(/[^/]*$/.exec(url.href)[0], 10);
+            const pId = /[^/]*$/.exec(url.href)[0];
             await fetch(`http://localhost:3000/api/playlist/removeSong`, {
               method: 'PUT',
               headers: {
@@ -552,7 +552,7 @@ const app = {
   changeCurrentPlaylist() {
     const url = new URL(window.location.href);
     // got this from stackoverflow: https://stackoverflow.com/questions/8376525/get-value-of-a-string-after-last-slash-in-javascript
-    const playlistId = parseInt(/[^/]*$/.exec(url.href)[0], 10);
+    const playlistId = /[^/]*$/.exec(url.href)[0];
     this.$playlists.forEach((playlist) => {
       if (playlist.dataset.id === playlistId) {
         playlist.classList.toggle('current-playlist');
