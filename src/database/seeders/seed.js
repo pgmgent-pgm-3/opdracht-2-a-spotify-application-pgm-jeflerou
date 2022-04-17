@@ -16,8 +16,8 @@ dbSeeder.run(UserFactory, 50).then((records) => {
   console.log(records);
 });
 
-// not fully functional
-// dbSeeder.run(PlaylistFactory, 50).then((records) => {
-//   console.log(`${records.length} seeded in db`);
-//   console.log(records);
-// });
+// not fully functional should seed my songs
+dbSeeder.run(PlaylistFactory, 50).then((records) => {
+  console.log(`${records.length} seeded in db`);
+  console.log(records);
+});

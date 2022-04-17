@@ -29,4 +29,7 @@ export default {
   artist(id, artists) {
     return artists.find((artist) => artist.id === id).name;
   },
+  song(id, song) {
+    return song.album.id === id ? song.name : '';
+  },
 };

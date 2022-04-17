@@ -82,6 +82,7 @@ export const updateObject = async (entityName, req, res, next) => {
       });
     }
 
+    await repository.remove({ id: req.body.id });
     repository.save({
       ...object,
       ...req.body,

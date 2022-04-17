@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUiExpress from 'swagger-ui-express';
 import { SOURCE_PATH } from './const.js';
 import { home } from './controllers/home.js';
+import { homeArtists } from './controllers/artist.js';
 import HandlebarsHelpers from './lib/HandlebarsHelpers.js';
 import entities from './models/index.js';
 import swaggerDefinition from './docs/swagger.js';
@@ -77,6 +78,7 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  */
 
 app.get('/playlist/:id', jwtAuth, home);
+app.get('/artist/:id', jwtAuth, homeArtists);
 
 app.get('/register', register);
 app.get('/login', login);

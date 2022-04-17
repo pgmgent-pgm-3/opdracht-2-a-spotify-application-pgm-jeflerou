@@ -20,6 +20,7 @@ const app = {
     ];
     this.changeCurrentPlaylist();
     this.changeTheme();
+    this.removeEmptyLi();
   },
   cacheElements() {
     this.$artistEdit = document.querySelectorAll('.artist-edit');
@@ -41,6 +42,14 @@ const app = {
     this.$removeSongPlaylist = document.querySelectorAll(
       '.playlist-remove-song'
     );
+    this.$modal = document.querySelector('.modal');
+    this.$modal_title = document.querySelector('.modal-title');
+    this.$songDelete = document.querySelectorAll('.delete-song');
+    this.$songEdit = document.querySelectorAll('.edit-song');
+    this.$albumDelete = document.querySelectorAll('.delete-album');
+    this.$albumEdit = document.querySelectorAll('.edit-album');
+    this.$addAlbum = document.querySelector('.add-album');
+    this.$addSong = document.querySelectorAll('.add-song');
   },
   playSound(soundPath) {
     this.sound = new Audio(`../${soundPath}`);
@@ -54,6 +63,239 @@ const app = {
     console.log(this.duration);
   },
   registerListeners() {
+    console.log(this.$addSong);
+    if (this.$addAlbum) {
+      this.$addAlbum.addEventListener(
+        'click',
+        async (e) => {
+          const url = new URL(window.location.href);
+          const artistId = url.href.charAt(url.href.length - 1);
+          e.preventDefault();
+          const name = document.getElementById('add-album').value;
+          await fetch(`http://localhost:3000/api/album`, {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ name: `${name}`, artist: artistId }),
+          });
+          document.location.reload();
+        },
+        false
+      );
+    }
+
+    if (this.$addSong) {
+      this.$addSong.forEach((button) => {
+        button.addEventListener(
+          'click',
+          async (e) => {
+            console.log('test');
+            const albumId = parseInt(
+              e.target.parentNode.parentNode.parentNode.dataset.id ||
+                e.target.parentNode.parentNode.parentNode.parentNode.dataset.id,
+              10
+            );
+            console.log(albumId);
+            const url = new URL(window.location.href);
+            const artistId = parseInt(url.href.charAt(url.href.length - 1), 10);
+            e.preventDefault();
+            const name = document.getElementById('add-song').value;
+            await fetch(`http://localhost:3000/api/song`, {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/json',
+              },
+              body: JSON.stringify({
+                name: `${name}`,
+                artist: artistId,
+                album: albumId,
+              }),
+            });
+            document.location.reload();
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$songDelete) {
+      this.$songDelete.forEach((button) => {
+        button.addEventListener(
+          'click',
+          async (e) => {
+            const id =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            await fetch(`http://localhost:3000/api/song/${id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-type': 'application/json',
+              },
+            });
+            document.location.reload();
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$albumDelete) {
+      this.$albumDelete.forEach((button) => {
+        button.addEventListener(
+          'click',
+          async (e) => {
+            const id =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            await fetch(`http://localhost:3000/api/album/${id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-type': 'application/json',
+              },
+            });
+            document.location.reload();
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$albumEdit) {
+      this.$albumEdit.forEach((button) => {
+        button.addEventListener(
+          'click',
+          (e) => {
+            const albumId =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            this.$modal_title.innerHTML = 'Change the albums name';
+            this.$modal.classList.toggle('hidden');
+            document.querySelector('.new-name-button').addEventListener(
+              'click',
+              async () => {
+                await fetch(`http://localhost:3000/api/album`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    id: albumId,
+                    name: document.querySelector('.new-name').value,
+                  }),
+                });
+                document.location.reload();
+              },
+              false
+            );
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$songEdit) {
+      this.$songEdit.forEach((button) => {
+        button.addEventListener(
+          'click',
+          (e) => {
+            const songId =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            this.$modal_title.innerHTML = 'Change the songs name';
+            this.$modal.classList.toggle('hidden');
+            document.querySelector('.new-name-button').addEventListener(
+              'click',
+              async () => {
+                console.log(document.querySelector('.new-name').value);
+                await fetch(`http://localhost:3000/api/song`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    id: songId,
+                    name: document.querySelector('.new-name').value,
+                  }),
+                });
+                document.location.reload();
+              },
+              false
+            );
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$artistEdit) {
+      this.$artistEdit.forEach((button) => {
+        button.addEventListener(
+          'click',
+          (e) => {
+            const artistId =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            this.$modal_title.innerHTML = 'Change the artists name';
+            this.$modal.classList.toggle('hidden');
+            document.querySelector('.new-name-button').addEventListener(
+              'click',
+              async () => {
+                console.log(document.querySelector('.new-name').value);
+                await fetch(`http://localhost:3000/api/artist`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    id: artistId,
+                    name: document.querySelector('.new-name').value,
+                  }),
+                });
+                document.location.reload();
+              },
+              false
+            );
+          },
+          false
+        );
+      });
+    }
+
+    if (this.$playlistEdit) {
+      this.$playlistEdit.forEach((button) => {
+        button.addEventListener(
+          'click',
+          (e) => {
+            const playlistId =
+              e.target.parentNode.parentNode.dataset.id ||
+              e.target.parentNode.parentNode.parentNode.dataset.id;
+            this.$modal_title.innerHTML = 'Change the playlist name';
+            this.$modal.classList.toggle('hidden');
+            document.querySelector('.new-name-button').addEventListener(
+              'click',
+              async () => {
+                console.log(document.querySelector('.new-name').value);
+                await fetch(`http://localhost:3000/api/playlist`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    id: playlistId,
+                    name: document.querySelector('.new-name').value,
+                  }),
+                });
+                document.location.reload();
+              },
+              false
+            );
+          },
+          false
+        );
+      });
+    }
+
     if (this.$artistDelete) {
       this.$artistDelete.forEach((button) => {
         button.addEventListener(
@@ -328,6 +570,15 @@ const app = {
       $body.classList.remove(...$body.classList);
       $body.classList.add(localStorage.getItem('theme'));
     }
+  },
+
+  removeEmptyLi() {
+    const $spans = document.querySelectorAll('.song-title-albums');
+    $spans.forEach((span) => {
+      if (span.innerHTML === '') {
+        span.parentElement.innerHTML = '';
+      }
+    });
   },
 };
 

@@ -2,9 +2,8 @@
     <h2 class="artists-title">Artists</h2>
     <ul>
         {{#each artists}}
-
         <li class="artist flex-container" data-id="{{id}}">
-            <h2>{{name}}</h2>
+            <a href="/artist/{{id}}">{{name}}</a>
             <div class="button-container flex-container">
                 {{#editor ../user.role}}
                 <button class="artist-edit">
